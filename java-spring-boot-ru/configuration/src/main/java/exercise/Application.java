@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @SpringBootApplication
 @RestController
@@ -28,17 +26,12 @@ public class Application {
     @GetMapping("/admins")
     public List<String> getAdmins() {
         List<String> adminEmails = userProperties.getAdmins();
-        List<String> adminNames = new ArrayList<>();
 
-        for (var user : users) {
-            for (var admin : adminEmails) {
-                if (user.getEmail().equals(admin)) {
-                    adminNames.add(user.getName());
-                }
-            }
-        }
-
-        return adminNames.stream().sorted().collect(Collectors.toList());
+        return users.stream()
+                .filter(user -> adminEmails.contains(user.getEmail()))
+                .map(User::getName)
+                .sorted()
+                .toList();
     }
     // END
 
@@ -49,10 +42,9 @@ public class Application {
 
     @GetMapping("/users/{id}")
     public Optional<User> show(@PathVariable Long id) {
-        var user = users.stream()
-                .filter(u -> u.getId() == id)
+        return users.stream()
+                .filter(u -> u.getId().equals(id))
                 .findFirst();
-        return user;
     }
 
     public static void main(String[] args) {
