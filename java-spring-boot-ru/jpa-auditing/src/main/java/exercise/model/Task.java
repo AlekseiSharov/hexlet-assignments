@@ -23,6 +23,6 @@ public class Task {
     @CreatedDate
     LocalDate createdAt;
     @LastModifiedDate
-    LocalDate updateAt;
+    LocalDate updatedAt;
 }
 // END

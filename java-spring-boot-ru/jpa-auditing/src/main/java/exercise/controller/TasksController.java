@@ -4,6 +4,7 @@ import exercise.exception.ResourceNotFoundException;
 import exercise.model.Task;
 import exercise.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class TasksController {
 
     // BEGIN
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Task createTask(@RequestBody Task task) {
         return taskRepository.save(task);
     }
