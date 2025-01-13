@@ -30,6 +30,9 @@ public class ContactsController {
         return toDTO(contact);
     }
 
+    /**
+     * @param createDTO ContactCreateDTO
+     */
     private Contact toEntity(ContactCreateDTO createDTO) {
         var entity = new Contact();
 
@@ -41,12 +44,7 @@ public class ContactsController {
     }
 
     /**
-     private long id;
-     private String firstName;
-     private String lastName;
-     private String phone;
-     private LocalDate createdAt;
-     private LocalDate updatedAt;
+     * @param entity Contact entity
      */
     private ContactDTO toDTO(Contact entity) {
         var dto = new ContactDTO();
