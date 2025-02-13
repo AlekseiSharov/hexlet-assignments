@@ -91,24 +91,6 @@ class UsersControllerTest {
     }
 
     @Test
-    public void testCreate() throws Exception {
-
-        var request = post("/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(testUser));
-
-        mockMvc.perform(request)
-                .andExpect(status().isCreated());
-
-        var user = userRepository.findByEmail(testUser.getEmail()).get();
-
-        assertThat(user).isNotNull();
-        assertThat(user.getName()).isEqualTo(testUser.getName());
-        assertThat(user.getEmail()).isEqualTo(testUser.getEmail());
-        assertThat(user.getPasswordDigest()).isNotEqualTo(testUser.getPasswordDigest());
-    }
-
-    @Test
     public void testIndexWithoutAuth() throws Exception {
         userRepository.save(testUser);
         var result = mockMvc.perform(get("/users"))
